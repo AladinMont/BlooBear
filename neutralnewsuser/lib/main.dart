@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart';
 import 'package:neutralnewsuser/network.dart';
+import 'package:neutralnewsuser/noticia.dart';
 
 void main() {
   runApp(const MyApp());
@@ -27,8 +28,9 @@ class Main extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var response = Network.lista();
-    print(json.decode(response).cast<String, dynamic>());
+    // var response = Network.lista();
+    // var arre = Lsiatas.fromjson(json.decode(response).cast<String, dynamic>());
+    // print(arre);
     var array = ["Uno", "Dos"];
     var eventos = ["evento1", "evento2"];
     final wid = MediaQuery.of(context).size.width;
@@ -68,7 +70,10 @@ class Main extends StatelessWidget {
                           tileColor: Colors.amber,
                           title: Text(array[index]),
                           onTap: () {
-                            print(eventos[index]);
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => const Noticia()));
                           },
                         ),
                       );
@@ -86,5 +91,7 @@ class Lsiatas {
   final title;
 
   Lsiatas(this.title);
-  // factory Lsiatas.fromjson
+  factory Lsiatas.fromjson(List<dynamic> json) {
+    return Lsiatas(json[0]);
+  }
 }
